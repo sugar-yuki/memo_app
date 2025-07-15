@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>タグ検索結果</title>
+</head>
+<body>
+    <h1>タグ検索結果</h1>
+    
+    <form method="GET" action="{% url 'tag_search' tag_name %}">
+        <input type="text" name="tag" placeholder="タグを入力" required>
+        <button type="submit">検索</button>
+    </form>
+
+    {% if notes %}
+        <h2>検索結果:</h2>
+        <ul>
+            {% for note in notes %}
+                <li>{{ note.title }} - {{ note.content|truncatewords:20 }}</li>
+            {% empty %}
+                <li>該当するメモはありません。</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>タグを入力して検索してください。</p>
+    {% endif %}
+</body>
+</html>
