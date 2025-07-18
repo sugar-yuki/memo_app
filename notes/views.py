@@ -22,5 +22,11 @@ def tag_search(request):
     return render(request, 'notes/tag_search.html', {'notes': notes, 'tag': tag})
 
 def note_form(request):
-    # メモ作成フォームの処理
-    return render(request, 'notes/note_form.html')
+    if request.method == "POST":
+        form = NoteForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('note_list')  # 保存後にリスト画面などへ
+    else:
+        form = NoteForm()
+    return render(request, 'notes/note_form.html', {'form': form})

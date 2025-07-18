@@ -9,6 +9,7 @@
     <h1>メモを作成する</h1>
     <form method="post">
         {% csrf_token %}
+        {{ form.as_p }}
         <div>
             <label for="title">タイトル:</label>
             <input type="text" id="title" name="title" required maxlength="100">
