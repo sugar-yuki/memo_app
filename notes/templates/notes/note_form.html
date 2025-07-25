@@ -7,21 +7,37 @@
 </head>
 <body>
     <h1>メモを作成する</h1>
+    
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form.non_field_errors }}
+        
         <div>
-            <label for="title">タイトル:</label>
-            <input type="text" id="title" name="title" required maxlength="100">
+            <label for="{{ form.title.id_for_label }}">タイトル:</label>
+            {{ form.title }}
+            {{ form.title.errors }}
         </div>
+
         <div>
-            <label for="content">内容:</label>
-            <textarea id="content" name="content" required maxlength="500"></textarea>
+            <label for="{{ form.content.id_for_label }}">内容:</label>
+            {{ form.content }}
+            {{ form.content.errors }}
         </div>
+
         <div>
-            <label for="tags">タグ (カンマ区切り):</label>
-            <input type="text" id="tags" name="tags">
+            <label for="tags">タグ (カンマ区切りで入力):</label>
+            <input type="text" name="tags" id="tags">
+            <small>例: 仕事,プライベート,アイデア</small>
         </div>
+
         <button type="submit">保存</button>
     </form>
     <a href="{% url 'note_list' %}">メモ一覧に戻る</a>

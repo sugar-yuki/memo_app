@@ -2,28 +2,30 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>メモ一覧</title>
 </head>
 <body>
-    <h1>メモ一覧</h1>
-    <a href="{% url 'note_form' %}">新しいメモを作成</a>
-    
-    <form method="GET" action="{% url 'tag_search' "a" %}">
-        <input type="text" name="tag" placeholder="タグで検索">
-        <button type="submit">検索</button>
-    </form>
 
-    <ul>
+    <h1>メモ一覧</h1>
+        <div>
+            <a href="{% url 'search_by_tag' %}">タグで検索</a>
+        </div>
+    {% if notes %}
         {% for note in notes %}
-            <li>
+            <div>
                 <h2>{{ note.title }}</h2>
                 <p>{{ note.content }}</p>
-                <p>タグ: {{ note.tags.all|join:", " }}</p>
-            </li>
-        {% empty %}
-            <li>メモがありません。</li>
+                <p>タグ:
+                    {% for tag in note.tags.all %}
+                            <a href="search/?search_tag={{ tag.name }}">{{ tag.name }}</a>
+                        {% endfor %}
+                </p>
+            </div>
         {% endfor %}
-    </ul>
+    {% else %}
+        <p>メモはまだありません。</p>
+    {% endif %}
+
+    <a href="{% url 'note_form' %}">新しいメモを作成</a>
 </body>
 </html>

@@ -3,27 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>タグ検索結果</title>
+    <title>タグ検索</title>
 </head>
 <body>
-    <h1>タグ検索結果</h1>
-    
-    <form method="GET" action="{% url 'tag_search' tag_name %}">
-        <input type="text" name="tag" placeholder="タグを入力" required>
+    <h1>タグ検索</h1>
+
+    <form method="get">
+        {{ form.as_p }}
         <button type="submit">検索</button>
     </form>
 
-    {% if notes %}
-        <h2>検索結果:</h2>
-        <ul>
+    {% if search_tag %}
+        <h2>"{{ search_tag }}" の検索結果</h2>
+        {% if notes %}
+            <ul>
             {% for note in notes %}
-                <li>{{ note.title }} - {{ note.content|truncatewords:20 }}</li>
-            {% empty %}
-                <li>該当するメモはありません。</li>
+                <li>
+                    <h3>{{ note.title }}</h3>
+                    <p>{{ note.content }}</p>
+                    <p>タグ:
+                        {% for tag in note.tags.all %}
+                            <a href="?tag={{ tag.name }}">{{ tag.name }}</a>
+                        {% endfor %}
+                    </p>
+                </li>
             {% endfor %}
-        </ul>
-    {% else %}
-        <p>タグを入力して検索してください。</p>
+            </ul>
+        {% else %}
+            <p>該当するメモは見つかりませんでした。</p>
+        {% endif %}
     {% endif %}
+
+    <a href="{% url 'note_list' %}">メモ一覧に戻る</a>
 </body>
 </html>

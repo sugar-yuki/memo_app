@@ -21,7 +21,8 @@ env.read_env('.env')
 # .envファイルからSECRET_KEYを読み込み
 SECRET_KEY = env('SECRET_KEY')
 # .envファイルからDEBUGの値を取得し、真偽値に変換
-DEBUG = env.bool('DEBUG', default=False)
+# DEBUG = env.bool('DEBUG', default=False)
+DEBUG=False
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -55,7 +56,7 @@ ROOT_URLCONF = 'memo_app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -103,6 +104,7 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
