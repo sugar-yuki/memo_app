@@ -2,30 +2,37 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>メモ一覧</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-
     <h1>メモ一覧</h1>
-        <div>
-            <a href="{% url 'search_by_tag' %}">タグで検索</a>
-        </div>
+    
+    <div class="search-area">
+        <a href="{% url 'search_by_tag' %}" class="button">タグで検索</a>
+    </div>
+
     {% if notes %}
         {% for note in notes %}
-            <div>
+            <div class="memo-card">
                 <h2>{{ note.title }}</h2>
                 <p>{{ note.content }}</p>
-                <p>タグ:
+                <div class="tag-container">
+                    タグ:
                     {% for tag in note.tags.all %}
-                            <a href="search/?search_tag={{ tag.name }}">{{ tag.name }}</a>
-                        {% endfor %}
-                </p>
+                        <a href="search/?search_tag={{ tag.name }}" class="tag">{{ tag.name }}</a>
+                    {% endfor %}
+                </div>
             </div>
         {% endfor %}
     {% else %}
-        <p>メモはまだありません。</p>
+        <p class="no-memos">メモはまだありません。</p>
     {% endif %}
 
-    <a href="{% url 'note_form' %}">新しいメモを作成</a>
+    <div style="text-align: center;">
+        <a href="{% url 'note_form' %}" class="button">新しいメモを作成</a>
+    </div>
 </body>
 </html>

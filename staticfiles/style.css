@@ -1,0 +1,85 @@
+/* 全体のスタイル */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    background-color: #f0f2f5;
+}
+
+h1 {
+    color: #1a73e8;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* メモカードのスタイル */
+.memo-card {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.memo-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.memo-card h2 {
+    color: #202124;
+    margin-top: 0;
+    font-size: 1.4em;
+}
+
+/* タグのスタイル */
+.tag-container {
+    margin-top: 10px;
+}
+
+.tag {
+    display: inline-block;
+    background-color: #e8f0fe;
+    color: #1967d2;
+    padding: 4px 8px;
+    border-radius: 16px;
+    font-size: 0.9em;
+    margin-right: 8px;
+    text-decoration: none;
+}
+
+.tag:hover {
+    background-color: #d2e3fc;
+}
+
+/* ボタンのスタイル */
+.button {
+    display: inline-block;
+    background-color: #1a73e8;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    margin: 10px 0;
+    transition: background-color 0.2s;
+}
+
+.button:hover {
+    background-color: #1557b0;
+}
+
+/* 検索ボタンエリア */
+.search-area {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* メモなしメッセージ */
+.no-memos {
+    text-align: center;
+    color: #5f6368;
+    font-size: 1.1em;
+    margin: 40px 0;
+}

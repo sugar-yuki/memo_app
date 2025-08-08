@@ -4,36 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>タグ検索</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <h1>タグ検索</h1>
+    <div class="container">
+        <h1>タグ検索</h1>
 
-    <form method="get">
-        {{ form.as_p }}
-        <button type="submit">検索</button>
-    </form>
+        <form method="get" class="search-form">
+            {{ form.as_p }}
+            <div class="button-group">
+                <button type="submit" class="button">検索</button>
+            </div>
+        </form>
 
-    {% if search_tag %}
-        <h2>"{{ search_tag }}" の検索結果</h2>
-        {% if notes %}
-            <ul>
-            {% for note in notes %}
-                <li>
-                    <h3>{{ note.title }}</h3>
-                    <p>{{ note.content }}</p>
-                    <p>タグ:
-                        {% for tag in note.tags.all %}
-                            <a href="?tag={{ tag.name }}">{{ tag.name }}</a>
-                        {% endfor %}
-                    </p>
-                </li>
-            {% endfor %}
-            </ul>
-        {% else %}
-            <p>該当するメモは見つかりませんでした。</p>
+        {% if search_tag %}
+            <div class="search-results">
+                <h2>"{{ search_tag }}" の検索結果</h2>
+                {% if notes %}
+                    {% for note in notes %}
+                        <div class="memo-card">
+                            <h2>{{ note.title }}</h2>
+                            <p>{{ note.content }}</p>
+                            <div class="tag-container">
+                                タグ:
+                                {% for tag in note.tags.all %}
+                                    <a href="?tag={{ tag.name }}" class="tag">{{ tag.name }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="no-memos">該当するメモは見つかりませんでした。</p>
+                {% endif %}
+            </div>
         {% endif %}
-    {% endif %}
 
-    <a href="{% url 'note_list' %}">メモ一覧に戻る</a>
+        <div class="nav-links">
+            <a href="{% url 'note_list' %}" class="button">メモ一覧に戻る</a>
+        </div>
+    </div>
 </body>
 </html>
