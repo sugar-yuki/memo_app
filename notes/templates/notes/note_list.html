@@ -25,6 +25,12 @@
                         <a href="search/?search_tag={{ tag.name }}" class="tag">{{ tag.name }}</a>
                     {% endfor %}
                 </div>
+                <div class="button-container">
+                <form method="post" action="{% url 'delete_note' note.pk %}" style="display: inline;" onsubmit="return confirm('このメモを削除してもよろしいですか？');">
+                    {% csrf_token %}
+                    <button type="submit" class="delete-button">削除</button>
+                </form>
+            </div>
             </div>
         {% endfor %}
     {% else %}

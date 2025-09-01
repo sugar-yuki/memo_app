@@ -7,4 +7,5 @@ urlpatterns = [
     path('note/new/', views.note_create, name='note_create'),
     path('tag/<str:tag>/', views.tag_search, name='tag_search'),
     path('search/', views.search_by_tag, name='search_by_tag'),
+    path('notes/<int:pk>/delete/', views.delete_note, name='delete_note'),
 ]

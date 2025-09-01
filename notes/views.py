@@ -75,3 +75,11 @@ def search_by_tag(request):
         'notes': notes,
         'search_tag': search_tag
     })
+    
+def delete_note(request, pk):
+    note = get_object_or_404(Note, pk=pk)
+    if request.method == 'POST':
+        note.delete()
+        messages.success(request, 'メモを削除しました。')
+        return redirect('note_list')
+    return redirect('note_list')
